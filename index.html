@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Политика конфиденциальности игры «Прыжки: Выжить на платформе» (ru.jumpers.game): какие данные обрабатывает рекламный SDK и что остаётся на устройстве.">
+<meta name="robots" content="index, follow">
+<title>Конфиденциальность Прыжков</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --paper: #F7F8FB;
+    --surface: #FFFFFF;
+    --ink: #191D2E;
+    --ink-soft: #5D6480;
+    --rule: #DFE3EE;
+    --accent: #3A46C0;
+    --accent-soft: #EEF0FD;
+    --flag: #A8481A;
+    --flag-soft: #FBF0E7;
+
+    --serif: "PT Serif", Georgia, "Times New Roman", serif;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0B1020;
+      --surface: #141B33;
+      --ink: #E7EAF6;
+      --ink-soft: #9AA2C0;
+      --rule: #26304F;
+      --accent: #93A0FF;
+      --accent-soft: #1B2447;
+      --flag: #E7A671;
+      --flag-soft: #2C2013;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #0B1020;
+    --surface: #141B33;
+    --ink: #E7EAF6;
+    --ink-soft: #9AA2C0;
+    --rule: #26304F;
+    --accent: #93A0FF;
+    --accent-soft: #1B2447;
+    --flag: #E7A671;
+    --flag-soft: #2C2013;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.62;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .sheet {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding-inline: 20px;
+    padding-block: 56px 72px;
+  }
+
+  /* --- шапка --- */
+
+  .masthead { border-bottom: 2px solid var(--ink); padding-bottom: 22px; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 14px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(1.9rem, 6vw, 2.6rem);
+    line-height: 1.14;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  .imprint {
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 6px 28px;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  .imprint dt {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.8;
+  }
+  .imprint dd { margin: 2px 0 0; color: var(--ink); }
+  .imprint dd code { font-size: 13px; }
+
+  .lede {
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    line-height: 1.55;
+    margin: 32px 0 0;
+  }
+
+  /* --- нумерованные разделы: номер несёт смысл, на него ссылаются --- */
+
+  .clauses { counter-reset: clause; list-style: none; margin: 44px 0 0; padding: 0; }
+
+  .clauses > li { counter-increment: clause; margin-top: 40px; }
+  .clauses > li:first-child { margin-top: 0; }
+
+  .clauses > li > h2 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.3rem;
+    line-height: 1.25;
+    margin: 0 0 10px;
+    text-wrap: balance;
+    display: flex;
+    gap: 0.6em;
+    align-items: baseline;
+  }
+  .clauses > li > h2::before {
+    content: counter(clause);
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 0.78em;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    flex: none;
+  }
+
+  p { margin: 0 0 0.85em; }
+  p:last-child { margin-bottom: 0; }
+
+  .clauses ul:not(.plain) { margin: 0.6em 0 0; padding-left: 1.15em; }
+  .clauses ul li { margin-bottom: 0.35em; }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.875em;
+    background: var(--accent-soft);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+    overflow-wrap: anywhere;
+  }
+
+  /* --- таблица собираемых данных: содержательное ядро документа --- */
+
+  .scroller { overflow-x: auto; margin-top: 16px; }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 32rem;
+    font-size: 14.5px;
+    background: var(--surface);
+  }
+  caption {
+    caption-side: bottom;
+    text-align: left;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    padding-top: 10px;
+  }
+  th, td {
+    text-align: left;
+    vertical-align: top;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--rule);
+  }
+  thead th {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--ink);
+  }
+  tbody tr:last-child th, tbody tr:last-child td { border-bottom: none; }
+  tbody th { font-weight: 600; }
+
+  /* --- единственный акцентный блок на странице --- */
+
+  .negative {
+    margin-top: 18px;
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    padding: 18px 20px;
+  }
+  .negative h3 {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.01em;
+    margin: 0 0 10px;
+  }
+  .negative ul { list-style: none; margin: 0; padding: 0; font-size: 14.5px; }
+  .negative li { padding-left: 1.4em; position: relative; margin-bottom: 0.4em; }
+  .negative li:last-child { margin-bottom: 0; }
+  .negative li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: var(--mono);
+  }
+
+  /* --- поля, которые нужно заполнить перед публикацией --- */
+
+  .fillme {
+    font-family: var(--mono);
+    font-size: 0.86em;
+    color: var(--flag);
+    background: var(--flag-soft);
+    border: 1px dashed var(--flag);
+    border-radius: 3px;
+    padding: 0.1em 0.4em;
+    overflow-wrap: anywhere;
+  }
+
+  /* --- подвал --- */
+
+  .colophon {
+    margin-top: 56px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  .colophon p { margin-bottom: 0.5em; }
+
+  @media print {
+    :root { --paper: #fff; --surface: #fff; --ink: #000; --ink-soft: #444; --rule: #bbb; --accent: #000; --accent-soft: #f2f2f2; }
+    .sheet { padding-block: 0; max-width: none; }
+    a { text-decoration: none; }
+  }
+</style>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  img { max-width: 100%; }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="masthead">
+    <p class="eyebrow">Прыжки: Выжить на платформе</p>
+    <h1>Политика конфиденциальности</h1>
+    <dl class="imprint">
+      <div>
+        <dt>Редакция</dt>
+        <dd>22 сентября 2026</dd>
+      </div>
+      <div>
+        <dt>Приложение</dt>
+        <dd><code>ru.jumpers.game</code></dd>
+      </div>
+      <div>
+        <dt>Разработчик</dt>
+        <dd>Смирнов Олег Леонидович</dd>
+      </div>
+      <div>
+        <dt>Возрастная категория</dt>
+        <dd>6+</dd>
+      </div>
+    </dl>
+    <p class="lede">Игра «Прыжки: Выжить на платформе» не регистрирует пользователей, не собирает персональные данные и ничего о вас не отправляет разработчику. Единственное, что обращается к сети, — встроенная реклама. Ниже подробно о том, что при этом происходит.</p>
+  </header>
+
+  <ol class="clauses">
+
+    <li>
+      <h2>Что делает приложение</h2>
+      <p>Это аркадная игра, которая целиком работает на устройстве: код, графика и игровой движок упакованы внутрь приложения. Игра запускается и полностью играется без интернета — например в авиарежиме. Соединение нужно только для загрузки рекламных объявлений.</p>
+      <div class="negative">
+        <h3>Чего приложение не делает</h3>
+        <ul>
+          <li>не требует регистрации, входа и не создаёт аккаунт;</li>
+          <li>не запрашивает доступ к камере, микрофону, геолокации, контактам, звонкам, SMS и файлам;</li>
+          <li>не содержит встроенных покупок и не принимает платежи;</li>
+          <li>не передаёт разработчику ваши игровые данные и ничем вас не идентифицирует;</li>
+          <li>не показывает рекламу, которая мешает играть: баннеров поверх игрового поля нет.</li>
+        </ul>
+      </div>
+    </li>
+
+    <li>
+      <h2>Данные, которые хранятся на вашем устройстве</h2>
+      <p>Игровой прогресс — лучший результат, накопленные монеты, открытые персонажи и настройки звука — сохраняется в локальном хранилище приложения на самом устройстве. Эти данные никуда не отправляются, доступны только самому приложению и удаляются вместе с ним при удалении игры или при очистке её данных в настройках Android.</p>
+    </li>
+
+    <li>
+      <h2>Реклама</h2>
+      <p>Для показа рекламы используется Yandex Mobile Ads SDK — компонент Рекламной сети Яндекса. Реклама показывается только по вашему выбору (просмотр видеоролика за игровой бонус) и между забегами. Рекламные объявления и связанные с ними данные обрабатывает Яндекс как оператор рекламной сети, а не разработчик игры.</p>
+      <div class="scroller">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Что обрабатывается</th>
+              <th scope="col">Кто обрабатывает</th>
+              <th scope="col">Зачем</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Рекламный идентификатор устройства</th>
+              <td>Яндекс</td>
+              <td>Ограничение частоты показов, защита от мошеннических показов</td>
+            </tr>
+            <tr>
+              <th scope="row">IP-адрес</th>
+              <td>Яндекс</td>
+              <td>Определение региона и языка объявления</td>
+            </tr>
+            <tr>
+              <th scope="row">Модель устройства, версия ОС, язык системы</th>
+              <td>Яндекс</td>
+              <td>Подбор подходящего формата объявления</td>
+            </tr>
+            <tr>
+              <th scope="row">Факты показа, просмотра и нажатия по объявлению</th>
+              <td>Яндекс</td>
+              <td>Учёт показов и расчёт вознаграждения разработчику</td>
+            </tr>
+            <tr>
+              <th scope="row">Игровой прогресс, результаты, поведение в игре</th>
+              <td>Никто — остаётся на устройстве</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+        <caption>Разработчик не получает доступ ни к одному из перечисленных в таблице рекламных параметров — только к обезличенной статистике показов в кабинете рекламной сети.</caption>
+      </div>
+      <p style="margin-top:18px">Условия обработки данных на стороне Яндекса описаны в <a href="https://yandex.ru/legal/confidential/" target="_blank" rel="noopener">Политике конфиденциальности Яндекса</a>.</p>
+    </li>
+
+    <li>
+      <h2>Реклама для детской аудитории</h2>
+      <p>Игра рассчитана в том числе на детей, поэтому рекламный SDK переведён в режим для детской аудитории. В этом режиме объявления <strong>неперсонализированные</strong>: они не подбираются на основе интересов, истории просмотров или профиля пользователя и дополнительно фильтруются по возрасту. Этот режим включён всегда и не зависит от настроек устройства.</p>
+    </li>
+
+    <li>
+      <h2>Разрешения приложения</h2>
+      <ul>
+        <li><code>INTERNET</code> — загрузка рекламных объявлений. Без этого разрешения игра работает, но реклама не показывается;</li>
+        <li><code>ACCESS_NETWORK_STATE</code> — проверка наличия соединения, чтобы не пытаться загрузить рекламу без сети и не расходовать заряд батареи.</li>
+      </ul>
+      <p style="margin-top:0.7em">Других разрешений приложение не запрашивает.</p>
+    </li>
+
+    <li>
+      <h2>Ваши возможности</h2>
+      <ul>
+        <li><strong>Сбросить или ограничить рекламный идентификатор</strong> — в настройках Android: «Google» → «Реклама» (на устройствах без сервисов Google — в разделе настроек конфиденциальности производителя);</li>
+        <li><strong>Удалить все данные игры</strong> — удалить приложение или стереть его данные в настройках Android. Локальный прогресс будет удалён безвозвратно, резервной копии на сервере не существует;</li>
+        <li><strong>Играть без рекламы</strong> — отключить интернет: игра полностью функциональна офлайн.</li>
+      </ul>
+    </li>
+
+    <li>
+      <h2>Изменения политики</h2>
+      <p>Если состав обрабатываемых данных изменится — например появится новый рекламный формат или аналитика, — эта страница будет обновлена, а дата редакции в начале документа изменится. Существенные изменения будут отражены в описании обновления приложения в магазине.</p>
+    </li>
+
+    <li>
+      <h2>Обратная связь</h2>
+      <p>Вопросы о данных, жалобы на содержание рекламы и просьбы об удалении данных: <a href="mailto:olegs798@yandex.ru">olegs798@yandex.ru</a>.</p>
+    </li>
+
+  </ol>
+
+  <footer class="colophon">
+    <p>Документ относится к приложению «Прыжки: Выжить на платформе» (<code>ru.jumpers.game</code>), распространяемому через RuStore.</p>
+    <p>Разработчик игры не является оператором рекламной сети и не имеет доступа к данным, которые рекламная сеть собирает на устройстве.</p>
+  </footer>
+
+</div>
+</body>
+</html>

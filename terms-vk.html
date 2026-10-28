@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Политика конфиденциальности игры «Прыжки: Выжить на платформе» (ru.jumpers.game): какие данные обрабатывает рекламный SDK и что остаётся на устройстве.">
+<meta name="robots" content="index, follow">
+<title>Пользовательское соглашение Прыжков ВКонтакте</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --paper: #F7F8FB;
+    --surface: #FFFFFF;
+    --ink: #191D2E;
+    --ink-soft: #5D6480;
+    --rule: #DFE3EE;
+    --accent: #3A46C0;
+    --accent-soft: #EEF0FD;
+    --flag: #A8481A;
+    --flag-soft: #FBF0E7;
+
+    --serif: "PT Serif", Georgia, "Times New Roman", serif;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0B1020;
+      --surface: #141B33;
+      --ink: #E7EAF6;
+      --ink-soft: #9AA2C0;
+      --rule: #26304F;
+      --accent: #93A0FF;
+      --accent-soft: #1B2447;
+      --flag: #E7A671;
+      --flag-soft: #2C2013;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #0B1020;
+    --surface: #141B33;
+    --ink: #E7EAF6;
+    --ink-soft: #9AA2C0;
+    --rule: #26304F;
+    --accent: #93A0FF;
+    --accent-soft: #1B2447;
+    --flag: #E7A671;
+    --flag-soft: #2C2013;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.62;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  .sheet {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding-inline: 20px;
+    padding-block: 56px 72px;
+  }
+
+  /* --- шапка --- */
+
+  .masthead { border-bottom: 2px solid var(--ink); padding-bottom: 22px; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 14px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(1.9rem, 6vw, 2.6rem);
+    line-height: 1.14;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  .imprint {
+    list-style: none;
+    margin: 20px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 6px 28px;
+    grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  .imprint dt {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    opacity: 0.8;
+  }
+  .imprint dd { margin: 2px 0 0; color: var(--ink); }
+  .imprint dd code { font-size: 13px; }
+
+  .lede {
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    line-height: 1.55;
+    margin: 32px 0 0;
+  }
+
+  /* --- нумерованные разделы: номер несёт смысл, на него ссылаются --- */
+
+  .clauses { counter-reset: clause; list-style: none; margin: 44px 0 0; padding: 0; }
+
+  .clauses > li { counter-increment: clause; margin-top: 40px; }
+  .clauses > li:first-child { margin-top: 0; }
+
+  .clauses > li > h2 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 1.3rem;
+    line-height: 1.25;
+    margin: 0 0 10px;
+    text-wrap: balance;
+    display: flex;
+    gap: 0.6em;
+    align-items: baseline;
+  }
+  .clauses > li > h2::before {
+    content: counter(clause);
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 0.78em;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    flex: none;
+  }
+
+  p { margin: 0 0 0.85em; }
+  p:last-child { margin-bottom: 0; }
+
+  .clauses ul:not(.plain) { margin: 0.6em 0 0; padding-left: 1.15em; }
+  .clauses ul li { margin-bottom: 0.35em; }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.875em;
+    background: var(--accent-soft);
+    padding: 0.1em 0.35em;
+    border-radius: 3px;
+    overflow-wrap: anywhere;
+  }
+
+  /* --- таблица собираемых данных: содержательное ядро документа --- */
+
+  .scroller { overflow-x: auto; margin-top: 16px; }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 32rem;
+    font-size: 14.5px;
+    background: var(--surface);
+  }
+  caption {
+    caption-side: bottom;
+    text-align: left;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    padding-top: 10px;
+  }
+  th, td {
+    text-align: left;
+    vertical-align: top;
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--rule);
+  }
+  thead th {
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--ink);
+  }
+  tbody tr:last-child th, tbody tr:last-child td { border-bottom: none; }
+  tbody th { font-weight: 600; }
+
+  /* --- единственный акцентный блок на странице --- */
+
+  .negative {
+    margin-top: 18px;
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    padding: 18px 20px;
+  }
+  .negative h3 {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.01em;
+    margin: 0 0 10px;
+  }
+  .negative ul { list-style: none; margin: 0; padding: 0; font-size: 14.5px; }
+  .negative li { padding-left: 1.4em; position: relative; margin-bottom: 0.4em; }
+  .negative li:last-child { margin-bottom: 0; }
+  .negative li::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: var(--mono);
+  }
+
+  /* --- поля, которые нужно заполнить перед публикацией --- */
+
+  .fillme {
+    font-family: var(--mono);
+    font-size: 0.86em;
+    color: var(--flag);
+    background: var(--flag-soft);
+    border: 1px dashed var(--flag);
+    border-radius: 3px;
+    padding: 0.1em 0.4em;
+    overflow-wrap: anywhere;
+  }
+
+  /* --- подвал --- */
+
+  .colophon {
+    margin-top: 56px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  .colophon p { margin-bottom: 0.5em; }
+
+  @media print {
+    :root { --paper: #fff; --surface: #fff; --ink: #000; --ink-soft: #444; --rule: #bbb; --accent: #000; --accent-soft: #f2f2f2; }
+    .sheet { padding-block: 0; max-width: none; }
+    a { text-decoration: none; }
+  }
+</style>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  img { max-width: 100%; }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="masthead">
+    <p class="eyebrow">Прыжки: Выжить на платформе — ВКонтакте</p>
+    <h1>Пользовательское соглашение</h1>
+    <dl class="imprint">
+      <div>
+        <dt>Редакция</dt>
+        <dd>28 октября 2026</dd>
+      </div>
+      <div>
+        <dt>Приложение</dt>
+        <dd>VK Mini Apps, id 54776121</dd>
+      </div>
+      <div>
+        <dt>Разработчик</dt>
+        <dd>Смирнов Олег Леонидович</dd>
+      </div>
+      <div>
+        <dt>Возрастная категория</dt>
+        <dd>6+</dd>
+      </div>
+    </dl>
+    <p class="lede">Это соглашение между вами и разработчиком игры «Прыжки: Выжить на платформе». Начиная играть, вы соглашаетесь с ним. Игра бесплатна, не требует регистрации и не просит платёжных данных.</p>
+  </header>
+
+  <ol class="clauses">
+
+    <li>
+      <h2>Что это за игра</h2>
+      <p>«Прыжки» — аркада для одного игрока: нужно прыгать с платформы на платформу, зарабатывать монеты и открывать персонажей. Монеты и персонажи существуют только внутри игры, не имеют денежной стоимости и не могут быть обменяны на деньги или передаваться другим игрокам.</p>
+    </li>
+
+    <li>
+      <h2>Бесплатно, с рекламой</h2>
+      <p>Игра бесплатная. В ней может показываться реклама ВКонтакте: по желанию игрока (например, «продолжить» или «удвоить монеты») и между забегами. Платных покупок внутри игры нет.</p>
+    </li>
+
+    <li>
+      <h2>Правила игры</h2>
+      <ul>
+        <li>Играйте честно: не используйте программы и приёмы, которые подделывают результаты или нарушают работу игры и рейтинга.</li>
+        <li>Не пытайтесь получить доступ к серверу, данным других игроков или обойти проверку подписи ВКонтакте.</li>
+        <li>Ваше имя в общем рейтинге берётся из профиля ВКонтакте (имя и первая буква фамилии). Если вы не хотите там быть, напишите разработчику — строка будет удалена.</li>
+        <li>Разработчик может убрать из рейтинга результаты, которые явно получены нечестным путём.</li>
+      </ul>
+    </li>
+
+    <li>
+      <h2>Данные и уведомления</h2>
+      <p>Какие данные собираются, где хранятся и как их удалить, описано в <a href="vk.html">политике конфиденциальности</a>. Уведомления игра присылает только с вашего согласия, и вы можете отключить их в любой момент в настройках ВКонтакте.</p>
+    </li>
+
+    <li>
+      <h2>Права на игру</h2>
+      <p>Игра, её персонажи, оформление и звуки принадлежат разработчику. Вы можете играть в неё для себя; копировать, распространять и использовать её в коммерческих целях без разрешения разработчика нельзя. Рассказывать об игре и показывать её в видео и на стримах можно.</p>
+    </li>
+
+    <li>
+      <h2>Без гарантий</h2>
+      <p>Игра предоставляется «как есть». Разработчик старается, чтобы она работала стабильно и прогресс не терялся, но не гарантирует отсутствие сбоев, а также сохранность прогресса и результатов в рейтинге при технических проблемах на стороне ВКонтакте или сервера. Разработчик может изменять игру, баланс, награды и рейтинг, а также прекратить её поддержку.</p>
+    </li>
+
+    <li>
+      <h2>Изменения соглашения</h2>
+      <p>Если условия изменятся, эта страница будет обновлена, а дата редакции вверху документа изменится. Продолжая играть после обновления, вы соглашаетесь с новой редакцией.</p>
+    </li>
+
+    <li>
+      <h2>Обратная связь</h2>
+      <p>Вопросы, предложения и сообщения об ошибках: <a href="mailto:olegs798@yandex.ru">olegs798@yandex.ru</a>.</p>
+    </li>
+
+  </ol>
+
+  <footer class="colophon">
+    <p>Документ относится к версии игры «Прыжки: Выжить на платформе» во ВКонтакте (VK Mini Apps).</p>
+  </footer>
+
+</div>
+</body>
+</html>
